@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { apiUrl } from "../../api";
 import { Card } from "../../Components/Card";
+import { ProductDetail } from "../../Components/ProductDetail";
 
 const Home = () => {
   const [items, setItems] = useState(null);
@@ -20,13 +21,16 @@ const Home = () => {
     fetchData();
   },[])
   return (
-    <section className='grid gap-8 grid-cols-4 w-full max-w-screen-lg'>
-    {
-      items?.map(item=>(
-        <Card key={item.id} data={item}/>
-      ))
-    }
-    </section>
+    <>
+      <section className='grid gap-8 grid-cols-4 w-full max-w-screen-lg'>
+        {
+          items?.map(item=>(
+            <Card key={item.id} data={item}/>
+          ))
+        }
+      </section>
+      <ProductDetail/>
+    </>
   );
 }
 
