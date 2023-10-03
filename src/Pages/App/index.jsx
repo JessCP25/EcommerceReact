@@ -7,6 +7,7 @@ import { NotFound } from '../NotFound'
 import { SignIn } from '../SignIn'
 import './App.css'
 import { Navbar } from '../../Components/Navbar'
+import { Layout } from '../../Components/Layout'
 
 
 const AppRoutes = () => {
@@ -26,7 +27,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar/>
-      <AppRoutes/>
+      <Layout>
+        <AppRoutes/>
+      </Layout>
     </BrowserRouter>
   )
 }
