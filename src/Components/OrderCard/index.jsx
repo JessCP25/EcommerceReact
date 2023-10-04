@@ -9,7 +9,7 @@ const OrderCard = (props) => {
         <figure className='w-[80px] h-[80px] mx-auto'>
           <img className="w-full h-full rounded-lg object-cover" src={imageUrl} alt={title} />
         </figure>
-        <p className='text-sm font-light truncate w-24'>{title}</p>
+        <p className='text-medium font-light truncate w-24'>{title}</p>
       </div>
       <div className='flex items-center gap-2'>
         <p className='text-lg font-medium'>${price}</p>
