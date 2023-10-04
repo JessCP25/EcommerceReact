@@ -3,10 +3,16 @@ import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartContext } from "../../Context";
 
 const Card = ({data}) => {
-  const {count, setCount, openProductDetail} = useContext(ShoppingCartContext);
+  const {count, setCount, openProductDetail,setProductToShow} = useContext(ShoppingCartContext);
+
+  const showProduct = (productDetail) => {
+    openProductDetail();
+    setProductToShow(productDetail);
+  }
+
   return (
     <div className='bg-[#B2DFDB] cursor-pointer w-56 h-60 rounded-lg shadow-xl'
-    onClick={() => openProductDetail()}
+    onClick={() => showProduct(data)}
     >
       <figure className='relative w-full h-4/5'>
         <span className='absolute bottom-0 left-0 bg-[#212121]/80 rounded-lg m-2 text-xs px-2 py-0.5 text-white'>{data.category}</span>
