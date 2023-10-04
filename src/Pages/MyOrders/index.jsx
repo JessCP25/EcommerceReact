@@ -11,7 +11,7 @@ const MyOrders = () => {
       <div className='flex flex-col gap-4 my-5'>
         {
           order.map((order, index) => (
-            <Link key={index} to={`/my-orders/${index+1}`}>
+            <Link key={index} to={`/my-order/${index}`}>
               <OrdersCard key={order.id} totalPrice={order.totalPrice} totalProducts={order.totalProducts}/>
             </Link>
           ))

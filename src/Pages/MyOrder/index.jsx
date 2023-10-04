@@ -6,6 +6,10 @@ import { Link } from "react-router-dom";
 
 const MyOrder = () => {
   const {order} = useContext(ShoppingCartContext);
+  let currentPath = window.location.pathname;
+  let index = currentPath.split('/').pop();
+  if(index === 'last') index = order?.length-1;
+
   return(
     <>
       <div className='relative w-[350px] flex justify-center'>
@@ -16,7 +20,7 @@ const MyOrder = () => {
       </div>
       <div className='flex flex-col gap-4 my-4 w-[350px]'>
         {
-          order?.slice(-1)[0]?.products.map((product)=>(
+          order?.[index]?.products.map((product)=>(
             <OrderCard
             key={product.id}
             id={product.id}
