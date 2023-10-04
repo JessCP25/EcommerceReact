@@ -3,14 +3,29 @@ import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
 import { OrderCard } from "../OrderCard";
 import { totalPrice } from "../../utils";
+import { Link } from "react-router-dom";
 
 const CheckoutSideMenu = () => {
-  const {isCheckoutSideMenuOpen, closeCheckoutSideMenu, cartProducts, setCartProducts, setCount, count} = useContext(ShoppingCartContext);
+  const {isCheckoutSideMenuOpen, closeCheckoutSideMenu, cartProducts, setCartProducts, setCount, count, order, setOrder} = useContext(ShoppingCartContext);
 
   const handleDelete = (id) => {
     const filteredProducts = cartProducts.filter(product => product.id !== id);
     setCartProducts(filteredProducts);
     setCount(count - 1);
+  }
+
+  const handleCheckout = () => {
+    const orderToAdd = {
+      date: '04.10.23',
+      products: cartProducts,
+      totalProducts: cartProducts.length,
+      totalPrice: totalPrice(cartProducts),
+    }
+
+    setOrder([...order, orderToAdd]);
+    setCartProducts([]);
+    setCount(0);
+    console.log(order);
   }
 
   return(
@@ -21,7 +36,7 @@ const CheckoutSideMenu = () => {
           onClick={()=>closeCheckoutSideMenu()}
         />
       </div>
-      <div className='flex flex-col gap-4 my-4'>
+      <div className='flex flex-col gap-4 my-4 flex-1'>
         {
           cartProducts.map((product)=>(
             <OrderCard
@@ -41,6 +56,11 @@ const CheckoutSideMenu = () => {
           <span>${totalPrice(cartProducts)}</span>
         </p>
       </div>
+      <Link to={'./my-order/last'}>
+        <button onClick={handleCheckout}
+        className='bg-[#009688] text-white py-3 font-bold rounded-lg mt-3 w-full'
+        >Checkout</button>
+      </Link>
     </aside>
   )
 }
