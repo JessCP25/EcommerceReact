@@ -42,7 +42,7 @@ const ShoppingCartProvider = ({children}) => {
   const [searchByTitle, setSearchByTitle] = useState('');
   
   const filteredByTitle = (items, searchByTitle) => {
-    return items.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()));
+    return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()));
   }
 
   useEffect(()=>{
