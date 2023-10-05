@@ -46,8 +46,27 @@ const ShoppingCartProvider = ({children}) => {
   }
 
   useEffect(()=>{
-    if(searchByTitle) setFilteredItems(filteredByTitle(items, searchByTitle))
+    setFilteredItems(filteredByTitle(items, searchByTitle))
   }, [items, searchByTitle])
+
+  const getCategory = (urlCategory) => {
+    let category = '';
+    switch (urlCategory) {
+      case 'women-clothes':
+        category = "women's clothing";
+        break;
+      case 'men-clothes':
+        category = "men's clothing";
+        break;
+      case 'electronics':
+        category = "electronics";
+        break;
+      case 'jewelery':
+        category = "jewelery";
+        break;
+    }
+    return category;
+  }
 
   return(
     <ShoppingCartContext.Provider value={{
@@ -69,7 +88,8 @@ const ShoppingCartProvider = ({children}) => {
       setItems,
       searchByTitle,
       setSearchByTitle,
-      filteredItems
+      filteredItems,
+      getCategory
     }}>
       {children}
     </ShoppingCartContext.Provider>

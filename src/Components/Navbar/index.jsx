@@ -5,7 +5,7 @@ import { ShoppingCartContext } from "../../Context";
 
 const Navbar = () => {
   const activeStyle = 'underline underline-offset-4';
-  const {count} = useContext(ShoppingCartContext);
+  const {cartProducts} = useContext(ShoppingCartContext);
 
   return(
     <nav className='flex fixed top-0 z-10 w-full justify-between py-5 px-8 text-sm bg-[#00796B] text-white'>
@@ -60,7 +60,7 @@ const Navbar = () => {
         </li>
         <li className='flex gap-2'>
           <ShoppingCartIcon className='w-6 h-6'/>
-          {count}
+          {cartProducts.length}
         </li>
       </ul>
     </nav>
