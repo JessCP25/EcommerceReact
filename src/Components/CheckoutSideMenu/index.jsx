@@ -27,6 +27,7 @@ const CheckoutSideMenu = () => {
     setCartProducts([]);
     setCount(0);
     console.log(order);
+    closeCheckoutSideMenu();
   }
 
   return(

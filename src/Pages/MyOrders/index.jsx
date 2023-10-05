@@ -7,12 +7,12 @@ const MyOrders = () => {
   const {order} = useContext(ShoppingCartContext);
   return(
     <>
-      <h1>MyOrders</h1>
+      <h1 className='font-medium'>MyOrders</h1>
       <div className='flex flex-col gap-4 my-5'>
         {
           order.map((order, index) => (
             <Link key={index} to={`/my-order/${index}`}>
-              <OrdersCard key={order.id} totalPrice={order.totalPrice} totalProducts={order.totalProducts}/>
+              <OrdersCard key={order.id} date={order.date} totalPrice={order.totalPrice} totalProducts={order.totalProducts}/>
             </Link>
           ))
         }

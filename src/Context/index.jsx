@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { apiUrl } from "../api";
 
 const ShoppingCartContext = createContext();
 
@@ -19,6 +20,34 @@ const ShoppingCartProvider = ({children}) => {
   const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
   // CheckoutSideMenu - AddOrder
   const [order, setOrder] = useState([]);
+  // getProducts
+  const [items, setItems] = useState(null);
+  const [filteredItems, setFilteredItems] = useState(null);
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        console.log(data);
+        setItems(data);
+      } catch (error) {
+        console.log(`Oh no, there is a error: ${error}`)
+      }
+    }
+    fetchData();
+  },[])
+
+  // SearchProduct - ByTitle
+  const [searchByTitle, setSearchByTitle] = useState('');
+  
+  const filteredByTitle = (items, searchByTitle) => {
+    return items.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()));
+  }
+
+  useEffect(()=>{
+    if(searchByTitle) setFilteredItems(filteredByTitle(items, searchByTitle))
+  }, [items, searchByTitle])
 
   return(
     <ShoppingCartContext.Provider value={{
@@ -35,7 +64,12 @@ const ShoppingCartProvider = ({children}) => {
       openCheckoutSideMenu,
       closeCheckoutSideMenu,
       order,
-      setOrder
+      setOrder,
+      items,
+      setItems,
+      searchByTitle,
+      setSearchByTitle,
+      filteredItems
     }}>
       {children}
     </ShoppingCartContext.Provider>
