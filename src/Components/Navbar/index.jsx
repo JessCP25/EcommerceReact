@@ -5,7 +5,13 @@ import { ShoppingCartContext } from "../../Context";
 
 const Navbar = () => {
   const activeStyle = 'underline underline-offset-4';
-  const {cartProducts} = useContext(ShoppingCartContext);
+  const {cartProducts, setSignOut} = useContext(ShoppingCartContext);
+
+  const handleSignOut = () => {
+    const stringifiedSignOut = JSON.stringify(true);
+    localStorage.setItem('sign-out', stringifiedSignOut);
+    setSignOut(true);
+  }
 
   return(
     <nav className='flex fixed top-0 z-10 w-full justify-between py-5 px-8 text-sm bg-[#00796B] text-white'>
@@ -56,7 +62,8 @@ const Navbar = () => {
         <li>
           <NavLink to='/sign-in'
           className={({isActive})=> isActive ? activeStyle : undefined}
-          >Sign in</NavLink>
+          onClick={()=>handleSignOut()}
+          >Sign out</NavLink>
         </li>
         <li className='flex gap-2'>
           <ShoppingCartIcon className='w-6 h-6'/>

@@ -10,6 +10,7 @@ import { Navbar } from '../../Components/Navbar'
 import { Layout } from '../../Components/Layout'
 import { ShoppingCartProvider } from '../../Context'
 import { CheckoutSideMenu } from '../../Components/CheckoutSideMenu'
+import { SignUp } from '../SignUp'
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -21,7 +22,8 @@ const AppRoutes = () => {
     {path: '/my-orders', element: <MyOrders/>},
     {path: '/my-order/:id', element: <MyOrder/>},
     {path: '/*', element: <NotFound/>},
-    {path: '/sign-in', element: <SignIn/>}
+    {path: '/sign-in', element: <SignIn/>},
+    {path: '/sign-up', element: <SignUp/>}
   ])
   return routes;
 }

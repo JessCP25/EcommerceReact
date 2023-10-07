@@ -3,6 +3,27 @@ import { apiUrl } from "../api";
 
 const ShoppingCartContext = createContext();
 
+export const initializeLocalStorage = () => {
+  const accountInLocalStorage = localStorage.getItem('account');
+  const signOutInLocalStorage = localStorage.getItem('sign-out');
+  let parsedAccount;
+  let parsedSignOut;
+
+  if(!accountInLocalStorage) {
+    localStorage.setItem('account', JSON.stringify({}));
+    parsedAccount = {};
+  }else{
+    parsedAccount = JSON.parse(accountInLocalStorage);
+  }
+
+  if(!signOutInLocalStorage) {
+    localStorage.setItem('account', JSON.stringify({}));
+    parsedSignOut = {};
+  }else{
+    parsedSignOut = JSON.parse(signOutInLocalStorage);
+  }
+}
+
 const ShoppingCartProvider = ({children}) => {
   // ShoppingCart - Quantity
   const [count, setCount] = useState(0);
@@ -68,6 +89,11 @@ const ShoppingCartProvider = ({children}) => {
     return category;
   }
 
+  // My account
+  const [account, setAccount] = useState({});
+  // Sign Out
+  const [signOut, setSignOut] = useState(false);
+
   return(
     <ShoppingCartContext.Provider value={{
       count,
@@ -89,7 +115,11 @@ const ShoppingCartProvider = ({children}) => {
       searchByTitle,
       setSearchByTitle,
       filteredItems,
-      getCategory
+      getCategory,
+      account,
+      setAccount,
+      signOut,
+      setSignOut
     }}>
       {children}
     </ShoppingCartContext.Provider>
