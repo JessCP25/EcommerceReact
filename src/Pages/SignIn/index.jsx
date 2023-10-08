@@ -1,18 +1,14 @@
 import { Link, Navigate } from "react-router-dom";
 import { useContext, useRef, useState } from "react";
 import { ShoppingCartContext } from "../../Context";
+import { LocalStorage } from "../../LocalStorage";
 
 const SignIn = () => {
-  const {account, setSignOut, setAccount} = useContext(ShoppingCartContext);
+  const {setSignOut, setAccount} = useContext(ShoppingCartContext);
   const [view, setView] = useState('user-info');
   const form = useRef(null);
-  // account
-  const accountLocalStorage = localStorage.getItem('account');
-  const parsedAccount = JSON.parse(accountLocalStorage);
-  // has an account
-  const noAccountInLocalStorage = parsedAccount ? Object.keys(parsedAccount).length === 0 : true;
-  const noAccountInLocalState = account ? Object.keys(account).length === 0 : true;
-  const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
+
+  const [hasUserAnAccount, parsedAccount] = LocalStorage();
 
   const handleSignIn = () => {
     const stringifiedSignOut = JSON.stringify(false);
@@ -36,7 +32,6 @@ const SignIn = () => {
     // sign in
     handleSignIn();
   }
-
 
   const renderLogIn = () => {
     return (
@@ -68,7 +63,7 @@ const SignIn = () => {
   const renderCreateUserInfo = () => {
     return (
 
-        <form className='w-full mt-7 mb-4 text-start'>
+        <form ref={form} className='w-full mt-7 mb-4 text-start'>
           <label htmlFor='name'>Your name:</label>
           <input required className='border-2 border-[#212121] rounded-lg w-full px-3 mb-5 mt-1 py-2 focus:outline-[#009688]'
           type="text" id='name'

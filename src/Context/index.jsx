@@ -17,7 +17,7 @@ export const initializeLocalStorage = () => {
   }
 
   if(!signOutInLocalStorage) {
-    localStorage.setItem('account', JSON.stringify({}));
+    localStorage.setItem('sign-out', JSON.stringify(false));
     parsedSignOut = {};
   }else{
     parsedSignOut = JSON.parse(signOutInLocalStorage);
@@ -119,7 +119,8 @@ const ShoppingCartProvider = ({children}) => {
       account,
       setAccount,
       signOut,
-      setSignOut
+      setSignOut,
+      initializeLocalStorage
     }}>
       {children}
     </ShoppingCartContext.Provider>
