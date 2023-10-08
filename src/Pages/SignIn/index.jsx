@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useContext, useRef, useState } from "react";
 import { ShoppingCartContext } from "../../Context";
 
 const SignIn = () => {
-  const {account} = useContext(ShoppingCartContext);
+  const {account, setSignOut, setAccount} = useContext(ShoppingCartContext);
   const [view, setView] = useState('user-info');
   const form = useRef(null);
   // account
@@ -14,6 +14,14 @@ const SignIn = () => {
   const noAccountInLocalState = account ? Object.keys(account).length === 0 : true;
   const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
 
+  const handleSignIn = () => {
+    const stringifiedSignOut = JSON.stringify(false);
+    localStorage.setItem('sign-out', stringifiedSignOut);
+    setSignOut(false);
+
+    return <Navigate replace to={'/'} />
+  }
+
   const createAnAccount = () => {
     const formData = new formData(form.current);
     const data = {
@@ -21,7 +29,12 @@ const SignIn = () => {
       email: formData.get('email'),
       password: formData.get('password')
     }
-    console.log(data);
+    // Create account
+    const stringifiedAccount = JSON.stringify(data);
+    localStorage.setItem('account', stringifiedAccount);
+    setAccount(data);
+    // sign in
+    handleSignIn();
   }
 
 
@@ -41,6 +54,7 @@ const SignIn = () => {
       <Link to={'/'}>
         <button className='w-full font-medium disabled:bg-[#757575] bg-[#009688] text-white rounded-lg mb-3 py-3'
         disabled={!hasUserAnAccount}
+        onClick={() => handleSignIn()}
         >Log in</button>
       </Link>
       <button className='w-full font-medium disabled:text-[#757575] disabled:border-[#757575] border-2 border-[#009688] text-[#009688] rounded-lg mb-3 py-3'
