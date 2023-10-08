@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { ShoppingCartContext } from "../../Context";
 
 const SignIn = () => {
   const {account} = useContext(ShoppingCartContext);
   const [view, setView] = useState('user-info');
+  const form = useRef(null);
   // account
   const accountLocalStorage = localStorage.getItem('account');
   const parsedAccount = JSON.parse(accountLocalStorage);
@@ -12,6 +13,17 @@ const SignIn = () => {
   const noAccountInLocalStorage = parsedAccount ? Object.keys(parsedAccount).length === 0 : true;
   const noAccountInLocalState = account ? Object.keys(account).length === 0 : true;
   const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
+
+  const createAnAccount = () => {
+    const formData = new formData(form.current);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      password: formData.get('password')
+    }
+    console.log(data);
+  }
+
 
   const renderLogIn = () => {
     return (
@@ -41,7 +53,33 @@ const SignIn = () => {
 
   const renderCreateUserInfo = () => {
     return (
-      <>Create</>
+
+        <form className='w-full mt-7 mb-4 text-start'>
+          <label htmlFor='name'>Your name:</label>
+          <input required className='border-2 border-[#212121] rounded-lg w-full px-3 mb-5 mt-1 py-2 focus:outline-[#009688]'
+          type="text" id='name'
+          placeholder='Peter'/>
+          <label htmlFor='email'>Your email:</label>
+          <input required
+          className='border-2 border-[#212121] rounded-lg w-full px-3 mb-5 mt-1 py-2 focus:outline-[#009688]'
+          type="email" id='email'
+          placeholder='micorreo@gmail.com'
+          />
+          <label htmlFor='password'>Your password:</label>
+          <input required
+          className='border-2 border-[#212121] rounded-lg w-full px-3 mb-5 mt-1 py-2 focus:outline-[#009688]'
+          type="password" id='password'
+          placeholder='********'
+          />
+          <Link>
+            <button
+            className='w-full bg-[#009688] text-white rounded-lg mb-3 py-3 font-medium'
+            onClick={() => createAnAccount()}>
+              Create
+            </button>
+          </Link>
+        </form>
+
     )
   }
 
