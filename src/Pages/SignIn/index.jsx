@@ -19,7 +19,7 @@ const SignIn = () => {
   }
 
   const createAnAccount = () => {
-    const formData = new formData(form.current);
+    const formData = new FormData(form.current);
     const data = {
       name: formData.get('name'),
       email: formData.get('email'),
@@ -67,20 +67,26 @@ const SignIn = () => {
           <label htmlFor='name'>Your name:</label>
           <input required className='border-2 border-[#212121] rounded-lg w-full px-3 mb-5 mt-1 py-2 focus:outline-[#009688]'
           type="text" id='name'
+          name='name'
+          defaultValue={parsedAccount?.name}
           placeholder='Peter'/>
           <label htmlFor='email'>Your email:</label>
           <input required
           className='border-2 border-[#212121] rounded-lg w-full px-3 mb-5 mt-1 py-2 focus:outline-[#009688]'
           type="email" id='email'
+          name='email'
+          defaultValue={parsedAccount?.email}
           placeholder='micorreo@gmail.com'
           />
           <label htmlFor='password'>Your password:</label>
           <input required
           className='border-2 border-[#212121] rounded-lg w-full px-3 mb-5 mt-1 py-2 focus:outline-[#009688]'
           type="password" id='password'
+          name='password'
+          defaultValue={parsedAccount?.password}
           placeholder='********'
           />
-          <Link>
+          <Link to='/'>
             <button
             className='w-full bg-[#009688] text-white rounded-lg mb-3 py-3 font-medium'
             onClick={() => createAnAccount()}>
