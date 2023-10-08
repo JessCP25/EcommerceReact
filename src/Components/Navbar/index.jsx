@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import { ShoppingCartIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from "../../Context";
 import { LocalStorage } from "../../LocalStorage";
 import { ShoppingCart } from "../ShoppingCart";
@@ -13,7 +12,7 @@ const Navbar = () => {
   const signOutNav = localStorage.getItem('sign-out');
   const parsedSignOut = JSON.parse(signOutNav);
   const isUserSignOut = signOut || parsedSignOut;
-  const [hasUserAnAccount, _] = LocalStorage();
+  const [hasUserAnAccount, parsedAccount] = LocalStorage();
 
   const handleSignOut = () => {
     const stringifiedSignOut = JSON.stringify(true);
@@ -26,7 +25,7 @@ const Navbar = () => {
       return (
         <>
           <li className='text-[#d8d8d8]/60'>
-            jpayanoc25@gmail.com
+            {parsedAccount?.email}
           </li>
           <li>
             <NavLink to='/my-orders'

@@ -36,14 +36,14 @@ const SignIn = () => {
   const renderLogIn = () => {
     return (
       <>
-        <div className='w-full mt-7 mb-4 text-start'>
+        <div className='flex flex-col w-80 my-5 gap-2 text-left'>
         <p>
-          <span>Email:</span>
-          <span>{parsedAccount?.email}</span>
+          <span className='font-light'>Name: </span>
+          <span>{parsedAccount?.name}</span>
         </p>
         <p>
-          <span>Password:</span>
-          <span>{parsedAccount?.password}</span>
+          <span className='font-light'>Email: </span>
+          <span>{parsedAccount?.email}</span>
         </p>
       </div>
       <Link to={'/'}>
