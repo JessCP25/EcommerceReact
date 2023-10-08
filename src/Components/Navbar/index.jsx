@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { ShoppingCartIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from "../../Context";
 import { LocalStorage } from "../../LocalStorage";
+import { ShoppingCart } from "../ShoppingCart";
 
 const Navbar = () => {
   const activeStyle = 'underline underline-offset-4';
@@ -92,8 +93,7 @@ const Navbar = () => {
       <ul className='flex items-center gap-3'>
         {renderView()}
         <li className='flex gap-2'>
-          <ShoppingCartIcon className='w-6 h-6'/>
-          {cartProducts.length}
+          <ShoppingCart/>
         </li>
       </ul>
     </nav>
